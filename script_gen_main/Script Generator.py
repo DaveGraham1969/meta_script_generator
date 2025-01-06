@@ -3,6 +3,45 @@ import customtkinter
 from PIL import Image
 from ctkdlib.custom_widgets import *
 
+serv_int_entry: int = 0
+port_group_entry: int = 0
+binding_subnet_entry: int = 0
+gw_address_entry: str = ""
+sig_address_entry: str = ""
+media_address_entry: str = ""
+serv_add_entry: str = ""
+vlan_id_entry: int = 0
+realm_label_entry: str = ""
+
+adj_label_entry: str = ""
+acct_port_entry: int = 0
+cust_address_entry: str = ""
+cust_subnet_entry: int = 0
+
+def get_entries():
+    serv_int_entry = serv_int_num.get()
+    port_group_entry = port_group.get()
+    binding_subnet_entry = binding_subnet.get()
+    gw_address_entry = gw_address.get()
+    sig_address_entry = sig_address.get()
+    media_address_entry = media_address.get()
+    serv_add_entry = serv_add.get()
+    vlan_id_entry = vlan_id.get()
+    realm_label_entry = realm_label.get()
+    adj_label_entry = adj_label.get()
+    acct_port_entry = acct_port.get()
+    cust_address_entry = cust_address.get()
+    cust_subnet_entry = cust_subnet.get()
+
+    # preview_pane.insert(customtkinter.END, serv_int_entry + "\n")
+    # preview_pane.insert(customtkinter.END, port_group_entry + "\n")
+
+
+
+
+
+
+
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
 
@@ -102,9 +141,9 @@ media_address.place(x=14, y=353)
 Label9 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Service Address Label")
 Label9.place(x=14, y=389)
 
-serv_add_label = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
-serv_add_label.place(x=14, y=411)
-CTkTooltip(serv_add_label, text='Max 30 chars', delay=1.5)
+serv_add = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
+serv_add.place(x=14, y=411)
+CTkTooltip(serv_add, text='Max 30 chars', delay=1.5)
 
 Label10 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="VLAN ID")
 Label10.place(x=14, y=448)
@@ -169,10 +208,13 @@ filename_box = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17']
 filename_box.place(x=427, y=789)
 CTkTooltip(filename_box, text='Filename without an extension - will be saved as <name>.txt', delay=1.5)
 
-submit = customtkinter.CTkButton(master=root, bg_color=['gray86', 'gray17'], text="Submit")
+submit = customtkinter.CTkButton(master=root, bg_color=['gray86', 'gray17'], text="Submit", command=get_entries)
 submit.place(x=104, y=853)
 
 write_file = customtkinter.CTkButton(master=root, bg_color=['gray86', 'gray17'], text="Write File")
 write_file.place(x=455, y=853)
 
 root.mainloop()
+
+
+
