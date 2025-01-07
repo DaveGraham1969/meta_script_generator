@@ -1,63 +1,63 @@
-import tkinter as tk
+#import tkinter as tk
 import customtkinter
 import ipaddress
-from PIL import Image
+#from PIL import Image
 from ctkdlib.custom_widgets import *
 
-serv_int_entry: int = 0
-port_group_entry: int = 0
-binding_subnet_entry: int = 0
-gw_address_entry = ""
-sig_address_entry: str = ""
-media_address_entry: str = ""
-serv_add_entry: str = ""
-vlan_id_entry: int = 0
-realm_label_entry: str = ""
+serv_int_value: int = 0
+port_group_value: int = 0
+binding_subnet_value: int = 0
+gw_address_value = ""
+sig_address_value: str = ""
+media_address_value: str = ""
+serv_add_value: str = ""
+vlan_id_value: int = 0
+realm_label_value: str = ""
 
-adj_label_entry: str = ""
-acct_port_entry: int = 0
-cust_address_entry: str = ""
-cust_subnet_entry: int = 0
+adj_label_value: str = ""
+acct_port_value: int = 0
+cust_address_value: str = ""
+cust_subnet_value: int = 0
 
 def get_entries():
-    global serv_int_entry
-    serv_int_entry = serv_int_num.get()
+    global serv_int_value
+    serv_int_value = serv_int_num.get()
 
-    global port_group_entry
-    port_group_entry = port_group.get()
+    global port_group_value
+    port_group_value = port_group.get()
 
-    global binding_subnet_entry
-    binding_subnet_entry = binding_subnet.get()
+    global binding_subnet_value
+    binding_subnet_value = binding_subnet.get()
 
-    global gw_address_entry
-    gw_address_entry = gw_address.get()
+    global gw_address_value
+    gw_address_value = gw_address.get()
 
-    global sig_address_entry
-    sig_address_entry = sig_address.get()
+    global sig_address_value
+    sig_address_value = sig_address.get()
 
-    global media_address_entry
-    media_address_entry = media_address.get()
+    global media_address_value
+    media_address_value = media_address.get()
 
-    global serv_add_entry
-    serv_add_entry = serv_add.get()
+    global serv_add_value
+    serv_add_value = serv_add_entry.get()
 
-    global vlan_id_entry
-    vlan_id_entry = vlan_id.get()
+    global vlan_id_value
+    vlan_id_value = vlan_id.get()
 
-    global realm_label_entry
-    realm_label_entry = realm_label.get()
+    global realm_label_value
+    realm_label_value = realm_entry.get()
 
-    global adj_label_entry
-    adj_label_entry = adj_label.get()
+    global adj_label_value
+    adj_label_value = adj_name_entry.get()
 
-    global acct_port_entry
-    acct_port_entry = acct_port.get()
+    global acct_port_value
+    acct_port_value = acct_port.get()
 
-    global cust_address_entry
-    cust_address_entry = cust_address.get()
+    global cust_address_value
+    cust_address_value = cust_address.get()
 
-    global cust_subnet_entry
-    cust_subnet_entry = cust_subnet.get()
+    global cust_subnet_value
+    cust_subnet_value = cust_subnet.get()
 
     validate_entries()
 
@@ -65,7 +65,7 @@ def get_entries():
     # preview_pane.insert(customtkinter.END, port_group_entry + "\n")
 
 def validate_entries():
-    if validate_ip(gw_address_entry):
+    if validate_ip(gw_address_value):
         preview_pane.insert(customtkinter.END, "Beautiful address \n")
     else:
         preview_pane.insert(customtkinter.END, "crap address \n")
@@ -73,14 +73,24 @@ def validate_entries():
 def validate_ip(address: str) -> bool:
     try:
         ip = ipaddress.ip_address(address)
+        print(ip)
         return True
     except ValueError:
         return False
 
 CHAR_LIMIT = 30
 def update_Serv_add_char_count(event=None):
-    remaining = CHAR_LIMIT - len(serv_add.get())
-    service_address_label.configure(text=f"Service Address Name - chars rem: {remaining}", bg_color=['gray86', 'gray17'])
+    remaining = CHAR_LIMIT - len(serv_add_entry.get())
+    service_address_label.configure(text=f"Service Address Label - chars: {remaining}", bg_color=['gray86', 'gray17'])
+
+def update_realm_char_count(event=None):
+    remaining = CHAR_LIMIT - len(realm_entry.get())
+    realm_label.configure(text=f"Realm Label - chars: {remaining}", bg_color=['gray86', 'gray17'])
+
+def update_adj_name_char_count(event=None):
+    remaining = CHAR_LIMIT - len(adj_name_entry.get())
+    adj_name_label.configure(text=f"Adjacency Name - chars: {remaining}", bg_color=['gray86', 'gray17'])
+
 
 
 customtkinter.set_appearance_mode("System")
@@ -179,19 +189,15 @@ Label8.place(x=14, y=330)
 media_address = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
 media_address.place(x=14, y=353)
 
-# todo - This defines a entry box with a character countdown from a max 30
-
-service_address_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text=f"Service Address Name - chars rem: {CHAR_LIMIT}")
+# service address entry with a character countdown from a max 30 chars
+######################################################################
+service_address_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text=f"Service Address Label - chars: {CHAR_LIMIT}")
 service_address_label.place(x=14, y=389)
 
-serv_add = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
-serv_add.place(x=14, y=411)
-serv_add.bind("<KeyRelease>", update_Serv_add_char_count)
-CTkTooltip(serv_add, text='Max 30 chars', delay=1.5)
-
-update_Serv_add_char_count()
-
-# todo ###################################################################
+serv_add_entry = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
+serv_add_entry.place(x=14, y=411)
+serv_add_entry.bind("<KeyRelease>", update_Serv_add_char_count)
+CTkTooltip(serv_add_entry, text='Max 30 chars', delay=1.5)
 
 Label10 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="VLAN ID")
 Label10.place(x=14, y=448)
@@ -200,12 +206,15 @@ vlan_id = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], wid
 vlan_id.place(x=14, y=471)
 CTkTooltip(vlan_id, text='Just the number - ie 130', delay=1.5)
 
-Label11 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Realm Label")
-Label11.place(x=14, y=510)
+# realm label character countdown
+######################################################################
+realm_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text=f"Realm Label - chars: {CHAR_LIMIT}")
+realm_label.place(x=14, y=510)
 
-realm_label = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
-realm_label.place(x=14, y=534)
-CTkTooltip(realm_label, text='Max 30 chars', delay=1.5)
+realm_entry = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
+realm_entry.place(x=14, y=534)
+realm_entry.bind("<KeyRelease>", update_realm_char_count)
+CTkTooltip(realm_entry, text='Max 30 chars', delay=1.5)
 
 Label12 = customtkinter.CTkLabel(
     master=root,
@@ -221,12 +230,18 @@ Label12 = customtkinter.CTkLabel(
     text_color_disabled="#3698cd")
 Label12.place(x=119, y=566)
 
-Label13 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Adjacency Name")
-Label13.place(x=14, y=596)
+# adjacency name character countdown
+######################################################################
 
-adj_label = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
-adj_label.place(x=14, y=620)
-CTkTooltip(adj_label, text='Max 30 Chars', delay=1.5)
+adj_name_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text=f"Adjacency Name - chars: {CHAR_LIMIT}")
+adj_name_label.place(x=14, y=596)
+
+adj_name_entry = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
+adj_name_entry.place(x=14, y=620)
+adj_name_entry.bind("<KeyRelease>", update_adj_name_char_count)
+CTkTooltip(adj_name_entry, text='Max 30 Chars', delay=1.5)
+
+######################################################################
 
 Label14 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Account Port")
 Label14.place(x=14, y=658)
@@ -240,7 +255,7 @@ Label15.place(x=14, y=723)
 
 cust_address = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
 cust_address.place(x=14, y=747)
-CTkTooltip(cust_address, text='Example 24 for /24', delay=1.5)
+
 
 Label16 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Subnet Prefix Length")
 Label16.place(x=14, y=786)
@@ -254,7 +269,7 @@ Label17.place(x=367, y=789)
 
 filename_box = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=257)
 filename_box.place(x=427, y=789)
-CTkTooltip(filename_box, text='Filename without an extension - will be saved as <name>.txt', delay=1.5)
+CTkTooltip(filename_box, text='Filename - will be saved as <name>.txt', delay=1.5)
 
 submit = customtkinter.CTkButton(master=root, bg_color=['gray86', 'gray17'], text="Submit", command=get_entries)
 submit.place(x=104, y=853)
@@ -262,7 +277,6 @@ submit.place(x=104, y=853)
 write_file = customtkinter.CTkButton(master=root, bg_color=['gray86', 'gray17'], text="Write File")
 write_file.place(x=455, y=853)
 
+update_Serv_add_char_count()
+
 root.mainloop()
-
-
-
