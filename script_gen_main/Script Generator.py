@@ -1,12 +1,13 @@
-import tkinter
+import tkinter as tk
 import customtkinter
+import ipaddress
 from PIL import Image
 from ctkdlib.custom_widgets import *
 
 serv_int_entry: int = 0
 port_group_entry: int = 0
 binding_subnet_entry: int = 0
-gw_address_entry: str = ""
+gw_address_entry = ""
 sig_address_entry: str = ""
 media_address_entry: str = ""
 serv_add_entry: str = ""
@@ -19,27 +20,67 @@ cust_address_entry: str = ""
 cust_subnet_entry: int = 0
 
 def get_entries():
+    global serv_int_entry
     serv_int_entry = serv_int_num.get()
+
+    global port_group_entry
     port_group_entry = port_group.get()
+
+    global binding_subnet_entry
     binding_subnet_entry = binding_subnet.get()
+
+    global gw_address_entry
     gw_address_entry = gw_address.get()
+
+    global sig_address_entry
     sig_address_entry = sig_address.get()
+
+    global media_address_entry
     media_address_entry = media_address.get()
+
+    global serv_add_entry
     serv_add_entry = serv_add.get()
+
+    global vlan_id_entry
     vlan_id_entry = vlan_id.get()
+
+    global realm_label_entry
     realm_label_entry = realm_label.get()
+
+    global adj_label_entry
     adj_label_entry = adj_label.get()
+
+    global acct_port_entry
     acct_port_entry = acct_port.get()
+
+    global cust_address_entry
     cust_address_entry = cust_address.get()
+
+    global cust_subnet_entry
     cust_subnet_entry = cust_subnet.get()
 
-    # preview_pane.insert(customtkinter.END, serv_int_entry + "\n")
+    validate_entries()
+
+    # preview_pane.insert(customtkinter.END, gw_address_entry + "\n")
     # preview_pane.insert(customtkinter.END, port_group_entry + "\n")
 
+def validate_entries():
+    if validate_ip(gw_address_entry):
+        preview_pane.insert(customtkinter.END, "Beautiful address \n")
+    else:
+        preview_pane.insert(customtkinter.END, "crap address \n")
 
+def validate_ip(address: str) -> bool:
+    try:
+        ip = ipaddress.ip_address(address)
+        return True
+    except ValueError:
+        return False
 
-
-
+CHAR_LIMIT = 30
+def update_Serv_add_char_count(event=None):
+    remaining = CHAR_LIMIT - len(serv_add.get())
+    service_address_label.configure(text=f"Service Address Name - chars rem: {remaining}", bg_color=['gray86', 'gray17'])
 
 
 customtkinter.set_appearance_mode("System")
@@ -138,12 +179,19 @@ Label8.place(x=14, y=330)
 media_address = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
 media_address.place(x=14, y=353)
 
-Label9 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Service Address Label")
-Label9.place(x=14, y=389)
+# todo - This defines a entry box with a character countdown from a max 30
+
+service_address_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text=f"Service Address Name - chars rem: {CHAR_LIMIT}")
+service_address_label.place(x=14, y=389)
 
 serv_add = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
 serv_add.place(x=14, y=411)
+serv_add.bind("<KeyRelease>", update_Serv_add_char_count)
 CTkTooltip(serv_add, text='Max 30 chars', delay=1.5)
+
+update_Serv_add_char_count()
+
+# todo ###################################################################
 
 Label10 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="VLAN ID")
 Label10.place(x=14, y=448)
