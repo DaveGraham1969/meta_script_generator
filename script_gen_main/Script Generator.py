@@ -21,6 +21,12 @@ acct_port_value: int = 0
 cust_address_value: str = ""
 cust_subnet_value: int = 0
 
+gw_address_valid: bool = False
+sig_address_valid: bool = False
+media_address_valid: bool = False
+cust_address_valid: bool = False
+
+
 """ get the entry box contents entered by user and assign to the global variables """
 def get_entries():
     preview_pane.delete(1.0, customtkinter.END)
@@ -65,9 +71,10 @@ def get_entries():
     cust_subnet_value = cust_subnet.get()
 
     validate_gw_address()
-    validate_sig_address() # todo implement validity check
-    validate_media_address() # todo implement validity check
-    validate_cust_end_address() # todo implement validity check
+    validate_sig_address()
+    validate_media_address()
+    validate_cust_end_address()
+    preview_script()
 
 
 
@@ -82,6 +89,9 @@ def validate_gw_address():
         preview_pane.insert(customtkinter.END, "GW Address OK ! \n")
         gw_address_label.configure(text_color="white")
 
+        global gw_address_valid
+        gw_address_valid = True
+
 
 def validate_sig_address():
     if not validate_ip(sig_address_value):
@@ -91,6 +101,9 @@ def validate_sig_address():
         preview_pane.insert(customtkinter.END, "Sig Address OK ! \n")
         sig_address_label.configure(text_color="white")
 
+        global sig_address_valid
+        sig_address_valid = True
+
 def validate_media_address():
     if not validate_ip(media_address_value):
         preview_pane.insert(customtkinter.END, "Media Address not valid ! \n")
@@ -99,6 +112,9 @@ def validate_media_address():
         preview_pane.insert(customtkinter.END, "Media Address OK ! \n")
         media_address_label.configure(text_color="white")
 
+        global media_address_valid
+        media_address_valid = True
+
 def validate_cust_end_address():
     if not validate_ip(cust_address_value):
         preview_pane.insert(customtkinter.END, "Customer Address not valid ! \n")
@@ -106,6 +122,10 @@ def validate_cust_end_address():
     else:
         preview_pane.insert(customtkinter.END, "Customer Address OK ! \n")
         cust_address_label.configure(text_color="white")
+        preview_script()
+
+        global cust_address_valid
+        cust_address_valid = True
 
 
 def validate_ip(address: str) -> bool:
@@ -128,6 +148,12 @@ def update_realm_char_count(event=None):
 def update_adj_name_char_count(event=None):
     remaining = CHAR_LIMIT - len(adj_name_entry.get())
     adj_name_label.configure(text=f"Adjacency Name - chars left: {remaining}", bg_color=['gray86', 'gray17'])
+
+def preview_script():
+    if gw_address_valid and sig_address_valid and media_address_valid and cust_address_valid:
+        print("simulated dump")
+    else:
+        pass
 
 
 

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e6b4abb-e60f-4014-9b12-c7f43bd091dd" name="Changes" comment="Implemented last two character counts for realm name and adjacency name..&#10;Corrected a couple tooltip texts..&#10;&#10;Next job - bring IP validation live and highlight entry mistakes in the text box - &#10;Question: Would it be extra good to amend BG or label colour if IP is not in valid format?  Investigate.">
+    <list default="true" id="9e6b4abb-e60f-4014-9b12-c7f43bd091dd" name="Changes" comment="Implemented full IP validation on all IP fields.&#10;&#10;Next Job - dump full script in preview pane">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/script_gen_main/Script Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/script_gen_main/Script Generator.py" afterDir="false" />
     </list>
@@ -32,15 +32,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Script Generator.executor": "Run",
-    "Python.file_writer.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Language Defaults"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Script Generator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.file_writer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Language Defaults&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\PythonProjects\meta_script_generator\script_gen_main" />
@@ -94,7 +94,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736256002053</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Implemented full IP validation on all IP fields.&#10;&#10;Next Job - dump full script in preview pane">
+      <option name="closed" value="true" />
+      <created>1736419776416</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1736419776416</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -102,6 +110,7 @@
     <MESSAGE value="captured contents of all entry boxes and assigned to variables&#10;&#10;=todo= define sanity checks for each text input where required to validate entry formats" />
     <MESSAGE value="Corrected the variables  that hold all the entry box data into proper global vars.&#10;&#10;Implemented the first (as a test) real-time max character countdown for the name fields 30 char limit.  Works great so will roll out to the other 1 or 2 boxes that require it." />
     <MESSAGE value="Implemented last two character counts for realm name and adjacency name..&#10;Corrected a couple tooltip texts..&#10;&#10;Next job - bring IP validation live and highlight entry mistakes in the text box - &#10;Question: Would it be extra good to amend BG or label colour if IP is not in valid format?  Investigate." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented last two character counts for realm name and adjacency name..&#10;Corrected a couple tooltip texts..&#10;&#10;Next job - bring IP validation live and highlight entry mistakes in the text box - &#10;Question: Would it be extra good to amend BG or label colour if IP is not in valid format?  Investigate." />
+    <MESSAGE value="Implemented full IP validation on all IP fields.&#10;&#10;Next Job - dump full script in preview pane" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented full IP validation on all IP fields.&#10;&#10;Next Job - dump full script in preview pane" />
   </component>
 </project>
