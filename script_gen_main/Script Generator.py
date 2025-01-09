@@ -4,6 +4,8 @@ import ipaddress
 #from PIL import Image
 from ctkdlib.custom_widgets import *
 
+
+""" define the global variables to contain the entry box contents """
 serv_int_value: int = 0
 port_group_value: int = 0
 binding_subnet_value: int = 0
@@ -19,7 +21,10 @@ acct_port_value: int = 0
 cust_address_value: str = ""
 cust_subnet_value: int = 0
 
+""" get the entry box contents entered by user and assign to the global variables """
 def get_entries():
+    preview_pane.delete(1.0, customtkinter.END)
+
     global serv_int_value
     serv_int_value = serv_int_num.get()
 
@@ -30,13 +35,13 @@ def get_entries():
     binding_subnet_value = binding_subnet.get()
 
     global gw_address_value
-    gw_address_value = gw_address.get()
+    gw_address_value = gw_address_entry.get()
 
     global sig_address_value
-    sig_address_value = sig_address.get()
+    sig_address_value = sig_address_entry.get()
 
     global media_address_value
-    media_address_value = media_address.get()
+    media_address_value = media_address_entry.get()
 
     global serv_add_value
     serv_add_value = serv_add_entry.get()
@@ -54,21 +59,54 @@ def get_entries():
     acct_port_value = acct_port.get()
 
     global cust_address_value
-    cust_address_value = cust_address.get()
+    cust_address_value = cust_address_entry.get()
 
     global cust_subnet_value
     cust_subnet_value = cust_subnet.get()
 
-    validate_entries()
+    validate_gw_address()
+    validate_sig_address() # todo implement validity check
+    validate_media_address() # todo implement validity check
+    validate_cust_end_address() # todo implement validity check
+
+
 
     # preview_pane.insert(customtkinter.END, gw_address_entry + "\n")
     # preview_pane.insert(customtkinter.END, port_group_entry + "\n")
 
-def validate_entries():
-    if validate_ip(gw_address_value):
-        preview_pane.insert(customtkinter.END, "Beautiful address \n")
+def validate_gw_address():
+    if not validate_ip(gw_address_value):
+        preview_pane.insert(customtkinter.END, "GW Address not valid ! \n")
+        gw_address_label.configure(text_color="red")
     else:
-        preview_pane.insert(customtkinter.END, "crap address \n")
+        preview_pane.insert(customtkinter.END, "GW Address OK ! \n")
+        gw_address_label.configure(text_color="white")
+
+
+def validate_sig_address():
+    if not validate_ip(sig_address_value):
+        preview_pane.insert(customtkinter.END, "Sig Address not valid ! \n")
+        sig_address_label.configure(text_color="red")
+    else:
+        preview_pane.insert(customtkinter.END, "Sig Address OK ! \n")
+        sig_address_label.configure(text_color="white")
+
+def validate_media_address():
+    if not validate_ip(media_address_value):
+        preview_pane.insert(customtkinter.END, "Media Address not valid ! \n")
+        media_address_label.configure(text_color="red")
+    else:
+        preview_pane.insert(customtkinter.END, "Media Address OK ! \n")
+        media_address_label.configure(text_color="white")
+
+def validate_cust_end_address():
+    if not validate_ip(cust_address_value):
+        preview_pane.insert(customtkinter.END, "Customer Address not valid ! \n")
+        cust_address_label.configure(text_color="red")
+    else:
+        preview_pane.insert(customtkinter.END, "Customer Address OK ! \n")
+        cust_address_label.configure(text_color="white")
+
 
 def validate_ip(address: str) -> bool:
     try:
@@ -81,15 +119,15 @@ def validate_ip(address: str) -> bool:
 CHAR_LIMIT = 30
 def update_Serv_add_char_count(event=None):
     remaining = CHAR_LIMIT - len(serv_add_entry.get())
-    service_address_label.configure(text=f"Service Address Label - chars: {remaining}", bg_color=['gray86', 'gray17'])
+    service_address_label.configure(text=f"Service Address Label - chars left: {remaining}", bg_color=['gray86', 'gray17'])
 
 def update_realm_char_count(event=None):
     remaining = CHAR_LIMIT - len(realm_entry.get())
-    realm_label.configure(text=f"Realm Label - chars: {remaining}", bg_color=['gray86', 'gray17'])
+    realm_label.configure(text=f"Realm Label - chars left: {remaining}", bg_color=['gray86', 'gray17'])
 
 def update_adj_name_char_count(event=None):
     remaining = CHAR_LIMIT - len(adj_name_entry.get())
-    adj_name_label.configure(text=f"Adjacency Name - chars: {remaining}", bg_color=['gray86', 'gray17'])
+    adj_name_label.configure(text=f"Adjacency Name - chars left: {remaining}", bg_color=['gray86', 'gray17'])
 
 
 
@@ -171,27 +209,27 @@ binding_subnet = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17
 binding_subnet.place(x=14, y=178)
 CTkTooltip(binding_subnet, text='Example 24 for /24', delay=1.5)
 
-Label6 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Nasstar GW Address")
-Label6.place(x=14, y=211)
+gw_address_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Nasstar GW Address")
+gw_address_label.place(x=14, y=211)
 
-gw_address = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
-gw_address.place(x=14, y=234)
+gw_address_entry = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
+gw_address_entry.place(x=14, y=234)
 
-Label7 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Nasstar Signalling Address")
-Label7.place(x=14, y=271)
+sig_address_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Nasstar Signalling Address")
+sig_address_label.place(x=14, y=271)
 
-sig_address = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
-sig_address.place(x=14, y=294)
+sig_address_entry = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
+sig_address_entry.place(x=14, y=294)
 
-Label8 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Nasstar Media Address")
-Label8.place(x=14, y=330)
+media_address_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Nasstar Media Address")
+media_address_label.place(x=14, y=330)
 
-media_address = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
-media_address.place(x=14, y=353)
+media_address_entry = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
+media_address_entry.place(x=14, y=353)
 
 # service address entry with a character countdown from a max 30 chars
 ######################################################################
-service_address_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text=f"Service Address Label - chars: {CHAR_LIMIT}")
+service_address_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text=f"Service Address Label - chars left: {CHAR_LIMIT}")
 service_address_label.place(x=14, y=389)
 
 serv_add_entry = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
@@ -208,7 +246,7 @@ CTkTooltip(vlan_id, text='Just the number - ie 130', delay=1.5)
 
 # realm label character countdown
 ######################################################################
-realm_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text=f"Realm Label - chars: {CHAR_LIMIT}")
+realm_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text=f"Realm Label - chars left: {CHAR_LIMIT}")
 realm_label.place(x=14, y=510)
 
 realm_entry = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
@@ -233,7 +271,7 @@ Label12.place(x=119, y=566)
 # adjacency name character countdown
 ######################################################################
 
-adj_name_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text=f"Adjacency Name - chars: {CHAR_LIMIT}")
+adj_name_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text=f"Adjacency Name - chars left: {CHAR_LIMIT}")
 adj_name_label.place(x=14, y=596)
 
 adj_name_entry = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
@@ -250,11 +288,11 @@ acct_port = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], w
 acct_port.place(x=14, y=682)
 CTkTooltip(acct_port, text='For port 3 & 4 enter in format 34', delay=1.5)
 
-Label15 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Customer End Address")
-Label15.place(x=14, y=723)
+cust_address_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Customer End Address")
+cust_address_label.place(x=14, y=723)
 
-cust_address = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
-cust_address.place(x=14, y=747)
+cust_address_entry = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234)
+cust_address_entry.place(x=14, y=747)
 
 
 Label16 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Subnet Prefix Length")
