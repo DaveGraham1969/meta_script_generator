@@ -177,7 +177,7 @@ def preview_script():
         preview_pane.insert(customtkinter.END, "sbc\n")
         preview_pane.insert(customtkinter.END, "media\n")
         preview_pane.insert(customtkinter.END, "media-address ipv4 " + media_address_value + " service-network " + serv_int_value + "\n")
-        preview_pane.insert(customtkinter.END, "realm " + realm_label_value)
+        preview_pane.insert(customtkinter.END, "realm " + realm_label_value + "\n")
         preview_pane.insert(customtkinter.END, "end\n\n")
 
         preview_pane.insert(customtkinter.END, "config\n")
@@ -185,7 +185,7 @@ def preview_script():
         preview_pane.insert(customtkinter.END, "signalling\n")
         preview_pane.insert(customtkinter.END, "adjacency sip " + adj_label_value + "\n")
         preview_pane.insert(customtkinter.END, "deactivation-mode normal\n")
-        preview_pane.insert(customtkinter.END, "account Port" + acct_port_value + "\n")
+        preview_pane.insert(customtkinter.END, "account port" + acct_port_value + "\n")
         preview_pane.insert(customtkinter.END, "call-media-policy\n")
         preview_pane.insert(customtkinter.END, "media-bypass-policy forbid\n")
         preview_pane.insert(customtkinter.END, "interop\n")
@@ -212,7 +212,7 @@ customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
 
 HEIGHT = 900
-WIDTH = 700
+WIDTH = 720
 
 root = customtkinter.CTk()
 root.title("Meta-Script Generator v0.2 - D Graham 2024")
@@ -223,7 +223,7 @@ root.resizable(False, False)
 entry_frame = customtkinter.CTkFrame(master=root, width=340, height=886, border_width=3, border_color="#474747")
 entry_frame.place(x=7, y=8)
 
-feedback_pane = customtkinter.CTkFrame(master=root, width=340, height=886, border_width=3, border_color="#474747")
+feedback_pane = customtkinter.CTkFrame(master=root, width=360, height=886, border_width=3, border_color="#474747")
 feedback_pane.place(x=354, y=8)
 
 Label1 = customtkinter.CTkLabel(
@@ -252,14 +252,14 @@ Label2 = customtkinter.CTkLabel(
     text="Error / Preview",
     text_color="#3698cd",
     text_color_disabled="#3698cd")
-Label2.place(x=446, y=15)
+Label2.place(x=456, y=15)
 
 preview_pane = customtkinter.CTkTextbox(
     master=root,
     bg_color=[
         'gray86',
         'gray17'],
-    width=318,
+    width=338,
     height=729,
     border_width=2)
 preview_pane.place(x=365, y=48)
@@ -382,7 +382,7 @@ CTkTooltip(cust_subnet, text='Example 24 for /24', delay=1.5)
 Label17 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Filename:", text_color="#3698cd")
 Label17.place(x=367, y=789)
 
-filename_box = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=257)
+filename_box = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=277)
 filename_box.place(x=427, y=789)
 CTkTooltip(filename_box, text='Filename - will be saved as <name>.txt', delay=1.5)
 
