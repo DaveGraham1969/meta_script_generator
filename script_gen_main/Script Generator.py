@@ -1,7 +1,5 @@
-#import tkinter as tk
 import customtkinter
 import ipaddress
-#from PIL import Image
 from ctkdlib.custom_widgets import *
 
 
@@ -88,7 +86,6 @@ def validate_gw_address():
         global gw_address_valid
         gw_address_valid = True
 
-
 def validate_sig_address():
     if not validate_ip(sig_address_value):
         preview_pane.insert(customtkinter.END, "Sig Address not valid ! \n")
@@ -122,7 +119,6 @@ def validate_cust_end_address():
         global cust_address_valid
         cust_address_valid = True
 
-
 def validate_ip(address: str) -> bool:
     try:
         ip = ipaddress.ip_address(address)
@@ -152,7 +148,7 @@ def preview_script():
         preview_pane.insert(customtkinter.END, "config\n")
         preview_pane.insert(customtkinter.END, "system\n")
         preview_pane.insert(customtkinter.END, "service-interface serv" + serv_int_value + "\n")
-        preview_pane.insert(customtkinter.END, "service-network" + serv_int_value + "\n")
+        preview_pane.insert(customtkinter.END, "service-network " + serv_int_value + "\n")
         preview_pane.insert(customtkinter.END, "port-group-name PortGroup" + port_group_value + "\n")
         preview_pane.insert(customtkinter.END, "ipv4" + "\n")
         preview_pane.insert(customtkinter.END, "subnet-prefix-length " + binding_subnet_value + "\n")
@@ -206,13 +202,79 @@ def preview_script():
         preview_pane.insert(customtkinter.END, "no activate\n")
         preview_pane.insert(customtkinter.END, "end\n\n")
 
+""" write script to file"""
+def write_file():
+    filename = filename_entry.get()
+    if filename_entry.get() == "":
+        preview_pane.insert(customtkinter.END, "ENTER A FILENAME FIRST !!\n")
+        filename_label.configure(text_color="red")
+    else:
+        filename_label.configure(text_color="white")
+        with open(f"{filename}.txt", "a") as file:
+            file.write("config\n")
+            file.write("system\n")
+            file.write("service-interface serv" + serv_int_value + "\n")
+            file.write("service-network " + serv_int_value + "\n")
+            file.write("port-group-name PortGroup" + port_group_value + "\n")
+            file.write("ipv4\n")
+            file.write("subnet-prefix-length " + binding_subnet_value + "\n")
+            file.write("gateway-ip-address " + gw_address_value + "\n")
+            file.write("local-ip-address " + sig_address_value + "\n")
+            file.write("service-address " + serv_add_value + "\n")
+            file.write("end\n\n")
+
+            file.write("config\n")
+            file.write("system\n")
+            file.write("service-interface serv" + serv_int_value + "\n")
+            file.write("ipv4\n")
+            file.write("local-ip-address " + media_address_value + "\n")
+            file.write("probes-source-style specific-source\n")
+            file.write("no activate\n")
+            file.write("vlan-id " + vlan_id_value + "\n")
+            file.write("network-security trusted\n")
+            file.write("criticality 1000\n")
+            file.write("end\n\n")
+
+            file.write("config\n")
+            file.write("sbc\n")
+            file.write("media\n")
+            file.write("media-address ipv4 " + media_address_value + " service-network " + serv_int_value + "\n")
+            file.write("realm " + realm_label_value + "\n")
+            file.write("end\n\n")
+
+            file.write("config\n")
+            file.write("sbc\n")
+            file.write("signalling\n")
+            file.write("adjacency sip " + adj_label_value + "\n")
+            file.write("deactivation-mode normal\n")
+            file.write("account port" + acct_port_value + "\n")
+            file.write("call-media-policy\n")
+            file.write("media-bypass-policy forbid\n")
+            file.write("interop\n")
+            file.write("message-manipulation\n")
+            file.write("edit-profiles outbound addAllowUPDATE\n")
+            file.write("force-signaling-peer all-requests\n")
+            file.write("adjacency-type preset-peering\n")
+            file.write("privacy trusted\n")
+            file.write("realm " + realm_label_value + "\n")
+            file.write("service-address " + serv_add_value + "\n")
+            file.write("signaling-local-port 5060\n")
+            file.write("remote-address-range ipv4 " + cust_address_value + " prefix-len " + cust_subnet_value + "\n")
+            file.write("signaling-peer " + cust_address_value + "\n")
+            file.write("dynamic-routing-domain-match " + cust_address_value + "\n")
+            file.write("signaling-peer-port 5060\n")
+            file.write("statistics-setting detail\n")
+            file.write("default-interop-profile Peer\n")
+            file.write("no activate\n")
+            file.write("end\n\n")
+
 
 """ set up the UI """
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
 
 HEIGHT = 900
-WIDTH = 720
+WIDTH = 740
 
 root = customtkinter.CTk()
 root.title("Meta-Script Generator v0.2 - D Graham 2024")
@@ -223,7 +285,7 @@ root.resizable(False, False)
 entry_frame = customtkinter.CTkFrame(master=root, width=340, height=886, border_width=3, border_color="#474747")
 entry_frame.place(x=7, y=8)
 
-feedback_pane = customtkinter.CTkFrame(master=root, width=360, height=886, border_width=3, border_color="#474747")
+feedback_pane = customtkinter.CTkFrame(master=root, width=380, height=886, border_width=3, border_color="#474747")
 feedback_pane.place(x=354, y=8)
 
 Label1 = customtkinter.CTkLabel(
@@ -252,14 +314,14 @@ Label2 = customtkinter.CTkLabel(
     text="Error / Preview",
     text_color="#3698cd",
     text_color_disabled="#3698cd")
-Label2.place(x=456, y=15)
+Label2.place(x=466, y=15)
 
 preview_pane = customtkinter.CTkTextbox(
     master=root,
     bg_color=[
         'gray86',
         'gray17'],
-    width=338,
+    width=358,
     height=729,
     border_width=2)
 preview_pane.place(x=365, y=48)
@@ -270,7 +332,7 @@ Label3.place(x=14, y=40)
 
 serv_int_num = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=234, placeholder_text="")
 serv_int_num.place(x=14, y=64)
-CTkTooltip(serv_int_num, text='Example VID112', delay=1.5)
+CTkTooltip(serv_int_num, text='Number - Example 112', delay=1.5)
 
 Label4 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Port Group 1-4", text_color="#3698cd")
 Label4.place(x=14, y=98)
@@ -379,17 +441,17 @@ cust_subnet = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'],
 cust_subnet.place(x=14, y=810)
 CTkTooltip(cust_subnet, text='Example 24 for /24', delay=1.5)
 
-Label17 = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Filename:", text_color="#3698cd")
-Label17.place(x=367, y=789)
+filename_label = customtkinter.CTkLabel(master=root, bg_color=['gray86', 'gray17'], text="Filename:", text_color="#3698cd")
+filename_label.place(x=367, y=789)
 
-filename_box = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=277)
-filename_box.place(x=427, y=789)
-CTkTooltip(filename_box, text='Filename - will be saved as <name>.txt', delay=1.5)
+filename_entry = customtkinter.CTkEntry(master=root, bg_color=['gray86', 'gray17'], width=297)
+filename_entry.place(x=427, y=789)
+CTkTooltip(filename_entry, text='Filename - will be saved as <name>.txt', delay=1.5)
 
 submit = customtkinter.CTkButton(master=root, bg_color=['gray86', 'gray17'], text="Submit", command=get_entries)
 submit.place(x=104, y=853)
 
-write_file = customtkinter.CTkButton(master=root, bg_color=['gray86', 'gray17'], text="Write File")
+write_file = customtkinter.CTkButton(master=root, bg_color=['gray86', 'gray17'], text="Write File", command=write_file)
 write_file.place(x=455, y=853)
 
 update_Serv_add_char_count()

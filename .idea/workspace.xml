@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e6b4abb-e60f-4014-9b12-c7f43bd091dd" name="Changes" comment="implemented the preview of the script - &#10;&#10;Just found out I need to widen the window as the script preview is wrapping 1 letter in a max length input - sods law">
+    <list default="true" id="9e6b4abb-e60f-4014-9b12-c7f43bd091dd" name="Changes" comment="Window, pane, preview pane and filename entry field widened to allow for max length labels without text wrapping.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/script_gen_main/Script Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/script_gen_main/Script Generator.py" afterDir="false" />
     </list>
@@ -118,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736427258084</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Window, pane, preview pane and filename entry field widened to allow for max length labels without text wrapping.">
+      <option name="closed" value="true" />
+      <created>1736428086348</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1736428086348</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -129,6 +137,7 @@
     <MESSAGE value="Implemented full IP validation on all IP fields.&#10;&#10;Next Job - dump full script in preview pane" />
     <MESSAGE value="Implemented a full check of all IP address validations to stop scriupt being previewed in pane when values are incorrect.  The script will only be previewed if all four IP addresses are valid." />
     <MESSAGE value="implemented the preview of the script - &#10;&#10;Just found out I need to widen the window as the script preview is wrapping 1 letter in a max length input - sods law" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented the preview of the script - &#10;&#10;Just found out I need to widen the window as the script preview is wrapping 1 letter in a max length input - sods law" />
+    <MESSAGE value="Window, pane, preview pane and filename entry field widened to allow for max length labels without text wrapping." />
+    <option name="LAST_COMMIT_MESSAGE" value="Window, pane, preview pane and filename entry field widened to allow for max length labels without text wrapping." />
   </component>
 </project>
