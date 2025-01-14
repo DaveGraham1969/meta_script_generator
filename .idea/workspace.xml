@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e6b4abb-e60f-4014-9b12-c7f43bd091dd" name="Changes" comment="Window, pane, preview pane and filename entry field widened to allow for max length labels without text wrapping.">
+    <list default="true" id="9e6b4abb-e60f-4014-9b12-c7f43bd091dd" name="Changes" comment="Implemented the file writing function - &#10;Its working in a slow way so gonna see about opening the writer once only...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/script_gen_main/Script Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/script_gen_main/Script Generator.py" afterDir="false" />
     </list>
@@ -126,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736428086348</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Implemented the file writing function - &#10;Its working in a slow way so gonna see about opening the writer once only...">
+      <option name="closed" value="true" />
+      <created>1736773620375</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1736773620375</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -138,6 +146,7 @@
     <MESSAGE value="Implemented a full check of all IP address validations to stop scriupt being previewed in pane when values are incorrect.  The script will only be previewed if all four IP addresses are valid." />
     <MESSAGE value="implemented the preview of the script - &#10;&#10;Just found out I need to widen the window as the script preview is wrapping 1 letter in a max length input - sods law" />
     <MESSAGE value="Window, pane, preview pane and filename entry field widened to allow for max length labels without text wrapping." />
-    <option name="LAST_COMMIT_MESSAGE" value="Window, pane, preview pane and filename entry field widened to allow for max length labels without text wrapping." />
+    <MESSAGE value="Implemented the file writing function - &#10;Its working in a slow way so gonna see about opening the writer once only..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented the file writing function - &#10;Its working in a slow way so gonna see about opening the writer once only..." />
   </component>
 </project>

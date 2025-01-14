@@ -122,7 +122,6 @@ def validate_cust_end_address():
 def validate_ip(address: str) -> bool:
     try:
         ip = ipaddress.ip_address(address)
-        print(ip)
         return True
     except ValueError:
         return False
@@ -204,69 +203,72 @@ def preview_script():
 
 """ write script to file"""
 def write_file():
+    preview_pane.delete(1.0, customtkinter.END)
+    preview_pane.insert(customtkinter.END, "File will be in program folder... \n\n")
     filename = filename_entry.get()
     if filename_entry.get() == "":
         preview_pane.insert(customtkinter.END, "ENTER A FILENAME FIRST !!\n")
         filename_label.configure(text_color="red")
     else:
         filename_label.configure(text_color="white")
-        with open(f"{filename}.txt", "a") as file:
-            file.write("config\n")
-            file.write("system\n")
-            file.write("service-interface serv" + serv_int_value + "\n")
-            file.write("service-network " + serv_int_value + "\n")
-            file.write("port-group-name PortGroup" + port_group_value + "\n")
-            file.write("ipv4\n")
-            file.write("subnet-prefix-length " + binding_subnet_value + "\n")
-            file.write("gateway-ip-address " + gw_address_value + "\n")
-            file.write("local-ip-address " + sig_address_value + "\n")
-            file.write("service-address " + serv_add_value + "\n")
-            file.write("end\n\n")
+        data: str = ("config\n" +
+                     "system\n" +
+                     "service-interface serv" + serv_int_value + "\n" +
+                     "service-network " + serv_int_value + "\n" +
+                     "port-group-name PortGroup" + port_group_value + "\n" +
+                     "ipv4\n" +
+                     "subnet-prefix-length " + binding_subnet_value + "\n" +
+                     "gateway-ip-address " + gw_address_value + "\n" +
+                     "local-ip-address " + sig_address_value + "\n" +
+                     "service-address " + serv_add_value + "\n" +
+                     "end\n\n" +
 
-            file.write("config\n")
-            file.write("system\n")
-            file.write("service-interface serv" + serv_int_value + "\n")
-            file.write("ipv4\n")
-            file.write("local-ip-address " + media_address_value + "\n")
-            file.write("probes-source-style specific-source\n")
-            file.write("no activate\n")
-            file.write("vlan-id " + vlan_id_value + "\n")
-            file.write("network-security trusted\n")
-            file.write("criticality 1000\n")
-            file.write("end\n\n")
+                     "config\n" +
+                     "system\n" +
+                     "service-interface serv" + serv_int_value + "\n" +
+                     "ipv4\n" +
+                     "local-ip-address " + media_address_value + "\n" +
+                     "probes-source-style specific-source\n"
+                     "no activate\n" +
+                     "vlan-id " + vlan_id_value + "\n" +
+                     "network-security trusted\n" +
+                     "criticality 1000\n" +
+                     "end\n\n" +
 
-            file.write("config\n")
-            file.write("sbc\n")
-            file.write("media\n")
-            file.write("media-address ipv4 " + media_address_value + " service-network " + serv_int_value + "\n")
-            file.write("realm " + realm_label_value + "\n")
-            file.write("end\n\n")
+                     "config\n" +
+                     "sbc\n" +
+                     "media\n" +
+                     "media-address ipv4 " + media_address_value + " service-network " + serv_int_value + "\n" +
+                     "realm " + realm_label_value + "\n" +
+                     "end\n\n" +
 
-            file.write("config\n")
-            file.write("sbc\n")
-            file.write("signalling\n")
-            file.write("adjacency sip " + adj_label_value + "\n")
-            file.write("deactivation-mode normal\n")
-            file.write("account port" + acct_port_value + "\n")
-            file.write("call-media-policy\n")
-            file.write("media-bypass-policy forbid\n")
-            file.write("interop\n")
-            file.write("message-manipulation\n")
-            file.write("edit-profiles outbound addAllowUPDATE\n")
-            file.write("force-signaling-peer all-requests\n")
-            file.write("adjacency-type preset-peering\n")
-            file.write("privacy trusted\n")
-            file.write("realm " + realm_label_value + "\n")
-            file.write("service-address " + serv_add_value + "\n")
-            file.write("signaling-local-port 5060\n")
-            file.write("remote-address-range ipv4 " + cust_address_value + " prefix-len " + cust_subnet_value + "\n")
-            file.write("signaling-peer " + cust_address_value + "\n")
-            file.write("dynamic-routing-domain-match " + cust_address_value + "\n")
-            file.write("signaling-peer-port 5060\n")
-            file.write("statistics-setting detail\n")
-            file.write("default-interop-profile Peer\n")
-            file.write("no activate\n")
-            file.write("end\n\n")
+                     "config\n" +
+                     "sbc\n" +
+                     "signalling\n" +
+                     "adjacency sip " + adj_label_value + "\n" +
+                     "deactivation-mode normal\n" +
+                     "account port" + acct_port_value + "\n" +
+                     "call-media-policy\n" +
+                     "media-bypass-policy forbid\n" +
+                     "interop\n" +
+                     "message-manipulation\n" +
+                     "edit-profiles outbound addAllowUPDATE\n" +
+                     "force-signaling-peer all-requests\n" +
+                     "adjacency-type preset-peering\n" +
+                     "privacy trusted\n" +
+                     "realm " + realm_label_value + "\n" +
+                     "service-address " + serv_add_value + "\n" +
+                     "signaling-local-port 5060\n" +
+                     "remote-address-range ipv4 " + cust_address_value + " prefix-len " + cust_subnet_value + "\n" +
+                     "signaling-peer " + cust_address_value + "\n" +
+                     "dynamic-routing-domain-match " + cust_address_value + "\n" +
+                     "signaling-peer-port 5060\n" +
+                     "statistics-setting detail\n" +
+                     "default-interop-profile Peer\n" +
+                     "no activate\n" +
+                     "end\n\n")
+        with open(f"{filename}.txt", "w") as file:
+            file.write(data)
 
 
 """ set up the UI """
