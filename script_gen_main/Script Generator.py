@@ -177,7 +177,7 @@ def preview_script():
 
         preview_pane.insert(customtkinter.END, "config\n")
         preview_pane.insert(customtkinter.END, "sbc\n")
-        preview_pane.insert(customtkinter.END, "signalling\n")
+        preview_pane.insert(customtkinter.END, "signaling\n")
         preview_pane.insert(customtkinter.END, "adjacency sip " + adj_label_value + "\n")
         preview_pane.insert(customtkinter.END, "deactivation-mode normal\n")
         preview_pane.insert(customtkinter.END, "account port" + acct_port_value + "\n")
@@ -244,7 +244,7 @@ def write_file():
 
                      "config\n" +
                      "sbc\n" +
-                     "signalling\n" +
+                     "signaling\n" +
                      "adjacency sip " + adj_label_value + "\n" +
                      "deactivation-mode normal\n" +
                      "account port" + acct_port_value + "\n" +
